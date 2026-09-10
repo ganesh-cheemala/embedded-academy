@@ -66,7 +66,7 @@ def client_key(request: Request, username: str = ""):
 SCHEMA_VERSION = 6
 logger = logging.getLogger("embedded_academy")
 logging.basicConfig(level=os.getenv("LOG_LEVEL", "INFO").upper(), format="%(asctime)s %(levelname)s %(name)s %(message)s")
-app = FastAPI(title="KCI Academy", version="15.0")
+app = FastAPI(title="KCI Academy", version="19.0")
 app.add_middleware(TrustedHostMiddleware, allowed_hosts=TRUSTED_HOSTS)
 app.add_middleware(SessionMiddleware, secret_key=SECRET, max_age=60 * 60 * 24 * 7, same_site="lax", https_only=COOKIE_SECURE)
 templates = Jinja2Templates(directory=BASE / "templates")
@@ -309,6 +309,12 @@ def init():
         pass
     if not c.execute("SELECT 1 FROM settings WHERE key='academy_name'").fetchone():
         c.execute("INSERT INTO settings(key,value) VALUES('academy_name',?)", ("KCI Academy",))
+    else:
+        # One-time cleanup for databases created before the KCI rebrand.
+        current_academy = c.execute("SELECT value FROM settings WHERE key='academy_name'").fetchone()
+        current_name = current_academy.get("value") if isinstance(current_academy, dict) else current_academy[0]
+        if current_name == "Embedded Academy":
+            c.execute("UPDATE settings SET value=? WHERE key='academy_name'", ("KCI Academy",))
     if not c.execute("SELECT 1 FROM settings WHERE key='course_name'").fetchone():
         c.execute("INSERT INTO settings(key,value) VALUES('course_name',?)", ("70 Days Embedded Systems Course · 2026",))
     defaults = {"academy_tagline":"Learn embedded systems. Build real things.","certificate_enabled":"1","certificate_prefix":"EA-2026","certificate_requirements":"All published lessons completed","contact_email":"","logo_stored":"","brand_accent":"#70f0c6"}
