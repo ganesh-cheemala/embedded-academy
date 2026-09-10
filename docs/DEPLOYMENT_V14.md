@@ -1,4 +1,4 @@
-# Embedded Academy v14 — Production Deployment
+# KCI Academy v14 — Production Deployment
 
 ## Recommended topology
 

@@ -66,7 +66,7 @@ def client_key(request: Request, username: str = ""):
 SCHEMA_VERSION = 6
 logger = logging.getLogger("embedded_academy")
 logging.basicConfig(level=os.getenv("LOG_LEVEL", "INFO").upper(), format="%(asctime)s %(levelname)s %(name)s %(message)s")
-app = FastAPI(title="Embedded Academy", version="15.0")
+app = FastAPI(title="KCI Academy", version="15.0")
 app.add_middleware(TrustedHostMiddleware, allowed_hosts=TRUSTED_HOSTS)
 app.add_middleware(SessionMiddleware, secret_key=SECRET, max_age=60 * 60 * 24 * 7, same_site="lax", https_only=COOKIE_SECURE)
 templates = Jinja2Templates(directory=BASE / "templates")
@@ -308,7 +308,7 @@ def init():
     except Exception:
         pass
     if not c.execute("SELECT 1 FROM settings WHERE key='academy_name'").fetchone():
-        c.execute("INSERT INTO settings(key,value) VALUES('academy_name',?)", ("Embedded Academy",))
+        c.execute("INSERT INTO settings(key,value) VALUES('academy_name',?)", ("KCI Academy",))
     if not c.execute("SELECT 1 FROM settings WHERE key='course_name'").fetchone():
         c.execute("INSERT INTO settings(key,value) VALUES('course_name',?)", ("70 Days Embedded Systems Course · 2026",))
     defaults = {"academy_tagline":"Learn embedded systems. Build real things.","certificate_enabled":"1","certificate_prefix":"EA-2026","certificate_requirements":"All published lessons completed","contact_email":"","logo_stored":"","brand_accent":"#70f0c6"}
@@ -324,7 +324,7 @@ def init():
             cat = next(name for start, end, name in categories if start <= d <= end)
             c.execute("INSERT INTO lessons(day,title,category,description,published) VALUES(?,?,?,?,0)", (d, f"Day {d:02d} — Embedded Systems Lesson", cat, "Lecture content, practical examples, notes and source code."))
     if not c.execute("SELECT 1 FROM announcements").fetchone():
-        c.execute("INSERT INTO announcements(title,body) VALUES(?,?)", ("Welcome to Embedded Academy", "Your 70-day learning journey starts here. Check the dashboard for the next published lesson."))
+        c.execute("INSERT INTO announcements(title,body) VALUES(?,?)", ("Welcome to KCI Academy", "Your 70-day learning journey starts here. Check the dashboard for the next published lesson."))
     apply_migrations(c)
     c.commit(); c.close()
 
@@ -551,7 +551,7 @@ def forgot_password(request: Request, background_tasks: BackgroundTasks, usernam
     c.execute("UPDATE password_resets SET used_at=? WHERE user_id=? AND used_at IS NULL",(now(),u["id"]))
     c.execute("INSERT INTO password_resets(user_id,token_hash,expires_at) VALUES(?,?,?)",(u["id"],token_hash,expires)); c.commit(); c.close();
     link=absolute_url(f"/reset-password?token={raw}")
-    sent = queue_email(background_tasks, u["email"] if "email" in u.keys() else "", "Reset your Embedded Academy password", f"Hello {u['name']},\n\nUse this link to reset your password (valid for 30 minutes):\n{link}\n\nIf you did not request this, you can ignore this email.")
+    sent = queue_email(background_tasks, u["email"] if "email" in u.keys() else "", "Reset your KCI Academy password", f"Hello {u['name']},\n\nUse this link to reset your password (valid for 30 minutes):\n{link}\n\nIf you did not request this, you can ignore this email.")
     message = "A password reset link has been emailed to your registered address." if sent else "Reset link generated. Email delivery is not configured, so the link is shown below for secure sharing."
     return page(request,"forgot_password.html",message=message,reset_link=None if sent else link)
 
@@ -746,7 +746,7 @@ def certificate_pdf(request: Request):
     from reportlab.lib.colors import HexColor
     buf=BytesIO(); pdf=canvas.Canvas(buf,pagesize=landscape(A4)); w,h=landscape(A4)
     pdf.setFillColor(HexColor("#08131c")); pdf.rect(0,0,w,h,fill=1,stroke=0); pdf.setStrokeColor(HexColor("#70f0c6")); pdf.setLineWidth(2); pdf.rect(18*mm,18*mm,w-36*mm,h-36*mm,fill=0,stroke=1)
-    pdf.setFillColor(HexColor("#70f0c6")); pdf.setFont("Helvetica-Bold",12); pdf.drawCentredString(w/2,h-38*mm,cfg.get("academy_name","Embedded Academy").upper())
+    pdf.setFillColor(HexColor("#70f0c6")); pdf.setFont("Helvetica-Bold",12); pdf.drawCentredString(w/2,h-38*mm,cfg.get("academy_name","KCI Academy").upper())
     pdf.setFillColor(HexColor("#ffffff")); pdf.setFont("Helvetica-Bold",30); pdf.drawCentredString(w/2,h-61*mm,"Certificate of Completion")
     pdf.setFont("Helvetica",12); pdf.setFillColor(HexColor("#b9c9d1")); pdf.drawCentredString(w/2,h-78*mm,"This certifies that")
     pdf.setFillColor(HexColor("#ffffff")); pdf.setFont("Helvetica-Bold",25); pdf.drawCentredString(w/2,h-96*mm,u["name"])
@@ -834,7 +834,7 @@ def admin_invite(request: Request, background_tasks: BackgroundTasks, student_id
     raw=secrets.token_urlsafe(32); token_hash=hashlib.sha256(raw.encode()).hexdigest(); expires=(datetime.now(timezone.utc)+timedelta(minutes=60)).strftime("%Y-%m-%d %H:%M:%S UTC")
     c.execute("UPDATE password_resets SET used_at=? WHERE user_id=? AND used_at IS NULL",(now(),student_id)); c.execute("INSERT INTO password_resets(user_id,token_hash,expires_at) VALUES(?,?,?)",(student_id,token_hash,expires)); c.commit(); c.close()
     link=absolute_url(f"/reset-password?token={raw}")
-    sent=queue_email(background_tasks, u["email"] if "email" in u.keys() else "", f"Welcome to {settings().get('academy_name','Embedded Academy')}", f"Hello {u['name']},\n\nYour academy account is ready. Set your password using this link (valid for 60 minutes):\n{link}\n\nCourse: {settings().get('course_name','')}")
+    sent=queue_email(background_tasks, u["email"] if "email" in u.keys() else "", f"Welcome to {settings().get('academy_name','KCI Academy')}", f"Hello {u['name']},\n\nYour academy account is ready. Set your password using this link (valid for 60 minutes):\n{link}\n\nCourse: {settings().get('course_name','')}")
     audit(admin["id"],"student_invite_sent" if sent else "student_invite_link_created",f"student:{student_id}")
     return page(request,"reset_link.html",student=u,reset_link=None if sent else link,expires=expires,emailed=sent)
 

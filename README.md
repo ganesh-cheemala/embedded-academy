@@ -1,4 +1,4 @@
-# Embedded Academy v10
+# KCI Academy v10
 
 A production-oriented FastAPI learning platform for the **70 Days Embedded Systems Course**.
 

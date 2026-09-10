@@ -1,4 +1,4 @@
-# Embedded Academy — Launch Checklist
+# KCI Academy — Launch Checklist
 
 ## Before the first student
 - [ ] Copy `.env.example` to `.env`.

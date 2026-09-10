@@ -17,7 +17,7 @@ for key in ("POSTGRES_PASSWORD","ACADEMY_SECRET","ACADEMY_ADMIN_PASSWORD"):
     val=vals.get(key,"")
     if val.lower().startswith("replace-with") or val in {"change-this-password","admin123","dev-only-change-me"}: errors.append(f"{key} still contains a placeholder/default")
 if vals.get("ACADEMY_ENV","production").lower()=="production" and not vals.get("ACADEMY_BASE_URL","").startswith("https://"): errors.append("ACADEMY_BASE_URL should use https:// in production")
-print("Embedded Academy launch self-check")
+print("KCI Academy launch self-check")
 if errors:
     print("\n".join(f"ERROR: {e}" for e in errors)); sys.exit(1)
 print("OK: required production settings are present.")

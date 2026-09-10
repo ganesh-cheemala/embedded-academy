@@ -1,6 +1,6 @@
 # Free Public Test Deployment
 
-Embedded Academy can be trialled publicly on Render without buying a domain. Render provides a free Python web service and a free Postgres database, but the free database expires after 30 days and the free web service spins down after 15 minutes of inactivity. Free web services also cannot send outbound SMTP on ports 25/465/587. Do not use this configuration for production student data.
+KCI Academy can be trialled publicly on Render without buying a domain. Render provides a free Python web service and a free Postgres database, but the free database expires after 30 days and the free web service spins down after 15 minutes of inactivity. Free web services also cannot send outbound SMTP on ports 25/465/587. Do not use this configuration for production student data.
 
 ## Prerequisites
 

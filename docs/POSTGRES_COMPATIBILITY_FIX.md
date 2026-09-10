@@ -1,4 +1,4 @@
-# Embedded Academy v16 — PostgreSQL Compatibility Fix
+# KCI Academy v16 — PostgreSQL Compatibility Fix
 
 v16 fixes PostgreSQL dictionary-row compatibility for code paths that use
 SQLite-style integer indexing such as `fetchone()[0]`.

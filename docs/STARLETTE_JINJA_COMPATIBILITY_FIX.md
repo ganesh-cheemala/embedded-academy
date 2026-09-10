@@ -1,4 +1,4 @@
-# Embedded Academy v17 — Starlette/Jinja Compatibility Fix
+# KCI Academy v17 — Starlette/Jinja Compatibility Fix
 
 Render was resolving Starlette 1.0.0 on Python 3.14. That combination can
 cause Jinja2 TemplateResponse to fail with:
