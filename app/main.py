@@ -109,6 +109,19 @@ async def server_error(request: Request, exc):
     return templates.TemplateResponse("error.html", {"request": request, "user": current(request), "academy": settings(), "status_code": 500, "message": "Something went wrong on the academy server."}, status_code=500)
 
 
+class CompatRow(dict):
+    """PostgreSQL dict row that also supports SQLite-style integer indexing."""
+    def __getitem__(self, key):
+        if isinstance(key, int):
+            return tuple(self.values())[key]
+        return super().__getitem__(key)
+
+def compat_dict_row(cursor):
+    factory = dict_row(cursor)
+    def make_row(values):
+        return CompatRow(factory(values))
+    return make_row
+
 class Database:
     def __init__(self, conn, postgres=False):
         self.conn = conn
@@ -135,7 +148,7 @@ def db():
     if USE_POSTGRES:
         if psycopg is None:
             raise RuntimeError("PostgreSQL mode requires psycopg[binary]")
-        return Database(psycopg.connect(DATABASE_URL, row_factory=dict_row), True)
+        return Database(psycopg.connect(DATABASE_URL, row_factory=compat_dict_row), True)
     c = sqlite3.connect(DB)
     c.row_factory = sqlite3.Row
     c.execute("PRAGMA foreign_keys = ON")
