@@ -1,0 +1,5 @@
+# Optional simpler HTTPS deployment. Replace with your real domain.
+academy.example.com {
+    encode gzip zstd
+    reverse_proxy app:8000
+}
