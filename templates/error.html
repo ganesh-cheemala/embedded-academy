@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}{{ status_code }} · {{ academy.academy_name }}{% endblock %}
+{% block content %}
+<section class="wrap errorpage">
+  <div class="eyebrow">SYSTEM RESPONSE</div>
+  <div class="errorcode">{{ status_code }}</div>
+  <h1>{{ 'Page not found' if status_code == 404 else 'Something went wrong' }}</h1>
+  <p>{{ message }}</p>
+  <div class="actions"><a class="btn" href="/">Back to academy</a>{% if user %}<a class="btn secondary" href="{{ '/admin' if user.role == 'admin' else '/dashboard' }}">Go to dashboard</a>{% endif %}</div>
+</section>
+{% endblock %}

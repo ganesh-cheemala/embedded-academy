@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}Audit log · {{ academy.academy_name }}{% endblock %}
+{% block content %}
+<section class="wrap adminpage">
+  <div class="dashhead adminhead"><div><div class="eyebrow">OPERATIONS</div><h1>Audit log.</h1><p>A chronological record of important academy actions.</p></div><div class="actions"><a class="btn secondary" href="/admin">Control center</a><a class="btn" href="/admin/analytics">Analytics</a></div></div>
+  <div class="audit-table">
+    <div class="audit-head"><span>Time</span><span>Actor</span><span>Action</span><span>Target</span><span>Detail</span></div>
+    {% for a in audit_rows %}<div class="audit-row"><span>{{ a.created_at }}</span><b>{{ a.actor }}</b><span>{{ a.action.replace('_',' ')|title }}</span><span>{{ a.target }}</span><small>{{ a.detail }}</small></div>{% else %}<p class="muted">No audit events yet.</p>{% endfor %}
+  </div>
+</section>
+{% endblock %}
