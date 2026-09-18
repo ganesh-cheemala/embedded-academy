@@ -491,24 +491,40 @@ def email_ready():
     return bool(SMTP_HOST and SMTP_FROM)
 
 def send_email(to: str, subject: str, body: str):
-    if not email_ready() or not to:
+    if not email_ready():
+        logger.error("SMTP email not configured: SMTP_HOST or SMTP_FROM is missing")
         return False, "Email delivery is not configured."
-    msg = EmailMessage(); msg["From"] = SMTP_FROM; msg["To"] = to; msg["Subject"] = subject; msg.set_content(body)
+    if not to:
+        logger.error("SMTP email not sent: recipient address is missing")
+        return False, "Recipient email is missing."
+    logger.info("SMTP email attempt: recipient=%s subject=%s host=%s port=%s tls=%s", to, subject, SMTP_HOST, SMTP_PORT, SMTP_TLS)
+    msg = EmailMessage()
+    msg["From"] = SMTP_FROM
+    msg["To"] = to
+    msg["Subject"] = subject
+    msg.set_content(body)
     try:
         with smtplib.SMTP(SMTP_HOST, SMTP_PORT, timeout=15) as server:
+            logger.info("SMTP connection established: host=%s port=%s", SMTP_HOST, SMTP_PORT)
             if SMTP_TLS:
                 server.starttls()
+                logger.info("SMTP STARTTLS completed")
             if SMTP_USER:
                 server.login(SMTP_USER, SMTP_PASSWORD)
+                logger.info("SMTP authentication successful: user=%s", SMTP_USER)
             server.send_message(msg)
+        logger.info("SMTP email sent successfully: recipient=%s subject=%s", to, subject)
         return True, "Email sent."
     except Exception as exc:
+        logger.exception("SMTP email failed: recipient=%s subject=%s error=%s", to, subject, exc)
         return False, f"Email delivery failed: {exc}"
 
 def queue_email(background_tasks: BackgroundTasks, to: str, subject: str, body: str):
     if email_ready() and to:
         background_tasks.add_task(send_email, to, subject, body)
+        logger.info("SMTP email queued: recipient=%s subject=%s", to, subject)
         return True
+    logger.warning("SMTP email not queued: email_ready=%s recipient_present=%s", email_ready(), bool(to))
     return False
 
 
