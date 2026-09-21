@@ -1,1 +1,229 @@
-{% extends 'base.html' %}{% block title %}Day {{ '%02d'|format(lesson.day) }} · {{ academy.academy_name }}{% endblock %}{% block content %}<section class="wrap lessonpage"><a class="back" href="/dashboard">← Back to dashboard</a><div class="lesson-title-row"><div><div class="eyebrow">DAY {{ '%02d'|format(lesson.day) }} · {{ lesson.category }}</div><h1>{{ lesson.title }}</h1><p class="lead">{{ lesson.description }}</p></div><div class="daybadge"><div>{{ '%02d'|format(lesson.day) }}<small>DAY</small></div></div></div><div class="video">{% if lesson.video_url %}<iframe src="{{ lesson.video_url }}" title="{{ lesson.title }}" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>{% else %}<div class="placeholder"><div>▶</div><span>Video will appear here when the lesson is published with a video link.</span></div>{% endif %}</div><div class="lessonbottom"><div><div class="eyebrow">RESOURCES</div><h2>Lesson materials</h2><div class="resources">{% for f in files %}<a href="/files/{{ f.id }}">↧ {{ f.filename }}</a>{% else %}<span class="muted">No files attached yet.</span>{% endfor %}</div></div><form method="post" action="/lesson/{{ lesson.day }}/complete"><input type="hidden" name="csrf_token" value="{{ csrf_token }}"><button class="btn" type="submit">{{ '✓ Completed' if lesson.completed else 'Mark lesson complete' }}</button></form></div>{% if quiz %}<section class="quiz-callout"><div><div class="eyebrow">KNOWLEDGE CHECK</div><h2>{{ quiz.title }}</h2><p>Test yourself on this lesson. Your latest attempt is saved.</p>{% if attempt %}<span class="status">Latest score {{ attempt.score }} / {{ attempt.total }}</span>{% endif %}</div><a class="btn secondary" href="/quiz/{{ quiz.id }}">{{ 'Review quiz' if attempt else 'Take quiz' }} →</a></section>{% endif %}{% if assignments %}<section class="lesson-assignments"><div class="eyebrow">PRACTICAL WORK</div>{% for a in assignments %}<div class="assignment-card"><div><span class="day">ASSIGNMENT</span><h2>{{ a.title }}</h2><p>{{ a.instructions }}</p>{% if a.due_text %}<small>Due: {{ a.due_text }}</small>{% endif %}{% if a.submitted_at %}<div class="submitted">✓ Submitted {{ a.submitted_at }}{% if a.submission_filename %} · {{ a.submission_filename }}{% endif %}</div>{% endif %}</div><form class="submitform" method="post" action="/assignment/{{ a.id }}/submit" enctype="multipart/form-data"><input type="hidden" name="csrf_token" value="{{ csrf_token }}"><input type="file" name="file" accept=".pdf,.ppt,.pptx,.doc,.docx,.txt,.zip,.ino,.c,.h,.cpp,.py,.jpg,.jpeg,.png"><textarea name="note" placeholder="Optional note for your instructor…">{{ a.submission_note or '' }}</textarea><button class="btn" type="submit">{{ 'Resubmit work' if a.submission_id else 'Submit work' }}</button></form></div>{% endfor %}</section>{% endif %}<div class="lesson-nav">{% if prev_day %}<a href="/lesson/{{ prev_day }}">← Previous</a>{% else %}<span></span>{% endif %}{% if next_day %}<a href="/lesson/{{ next_day }}">Next lesson →</a>{% endif %}</div></section>{% endblock %}
+{% extends 'base.html' %}
+
+{% block title %}
+Day {{ '%02d'|format(lesson.day) }} · {{ academy.academy_name }}
+{% endblock %}
+
+{% block content %}
+
+<section class="wrap lessonpage">
+
+  <a class="back" href="/dashboard">← Back to dashboard</a>
+
+  <div class="lesson-title-row">
+    <div>
+      <div class="eyebrow">
+        DAY {{ '%02d'|format(lesson.day) }} · {{ lesson.category }}
+      </div>
+      <h1>{{ lesson.title }}</h1>
+      <p class="lead">{{ lesson.description }}</p>
+    </div>
+
+    <div class="daybadge">
+      <div>
+        {{ '%02d'|format(lesson.day) }}
+        <small>DAY</small>
+      </div>
+    </div>
+  </div>
+
+  <!-- VIDEO -->
+  <div class="video">
+    {% if lesson.video_url %}
+
+      {% if 'drive.google.com' in lesson.video_url or 'docs.google.com' in lesson.video_url %}
+
+        <div style="min-height:360px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px;">
+          <div style="font-size:56px;margin-bottom:16px;">▶</div>
+
+          <h2 style="margin:0 0 10px;">
+            Day {{ '%02d'|format(lesson.day) }} Video Lesson
+          </h2>
+
+          <p style="margin:0 0 24px;opacity:.75;">
+            Click below to watch the lesson video.
+          </p>
+
+          <a
+            class="btn"
+            href="{{ lesson.video_url }}"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            ▶ Watch Video
+          </a>
+
+          <p style="margin:18px 0 0;font-size:13px;opacity:.6;">
+            The video will open in a new tab.
+          </p>
+        </div>
+
+      {% else %}
+
+        <iframe
+          src="{{ lesson.video_url }}"
+          title="{{ lesson.title }}"
+          allow="autoplay; encrypted-media; picture-in-picture"
+          allowfullscreen>
+        </iframe>
+
+      {% endif %}
+
+    {% else %}
+
+      <div class="placeholder">
+        <div>▶</div>
+        <span>
+          Video will appear here when the lesson is published with a video link.
+        </span>
+      </div>
+
+    {% endif %}
+  </div>
+
+  <!-- RESOURCES AND COMPLETION -->
+  <div class="lessonbottom">
+
+    <div>
+      <div class="eyebrow">RESOURCES</div>
+      <h2>Lesson materials</h2>
+
+      <div class="resources">
+        {% for f in files %}
+          <a href="/files/{{ f.id }}">↧ {{ f.filename }}</a>
+        {% else %}
+          <span class="muted">No files attached yet.</span>
+        {% endfor %}
+      </div>
+    </div>
+
+    <form method="post" action="/lesson/{{ lesson.day }}/complete">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+
+      <button class="btn" type="submit">
+        {{ '✓ Completed' if lesson.completed else 'Mark lesson complete' }}
+      </button>
+    </form>
+
+  </div>
+
+  <!-- QUIZ -->
+  {% if quiz %}
+
+  <section class="quiz-callout">
+
+    <div>
+      <div class="eyebrow">KNOWLEDGE CHECK</div>
+
+      <h2>{{ quiz.title }}</h2>
+
+      <p>
+        Test yourself on this lesson.
+        Your latest attempt is saved.
+      </p>
+
+      {% if attempt %}
+        <span class="status">
+          Latest score {{ attempt.score }} / {{ attempt.total }}
+        </span>
+      {% endif %}
+    </div>
+
+    <a class="btn secondary" href="/quiz/{{ quiz.id }}">
+      {{ 'Review quiz' if attempt else 'Take quiz' }} →
+    </a>
+
+  </section>
+
+  {% endif %}
+
+  <!-- ASSIGNMENTS -->
+  {% if assignments %}
+
+  <section class="lesson-assignments">
+
+    <div class="eyebrow">PRACTICAL WORK</div>
+
+    {% for a in assignments %}
+
+    <div class="assignment-card">
+
+      <div>
+
+        <span class="day">ASSIGNMENT</span>
+
+        <h2>{{ a.title }}</h2>
+
+        <p>{{ a.instructions }}</p>
+
+        {% if a.due_text %}
+          <small>Due: {{ a.due_text }}</small>
+        {% endif %}
+
+        {% if a.submitted_at %}
+          <div class="submitted">
+            ✓ Submitted {{ a.submitted_at }}
+            {% if a.submission_filename %}
+              · {{ a.submission_filename }}
+            {% endif %}
+          </div>
+        {% endif %}
+
+      </div>
+
+      <form
+        class="submitform"
+        method="post"
+        action="/assignment/{{ a.id }}/submit"
+        enctype="multipart/form-data"
+      >
+
+        <input
+          type="hidden"
+          name="csrf_token"
+          value="{{ csrf_token }}"
+        >
+
+        <input
+          type="file"
+          name="file"
+          accept=".pdf,.ppt,.pptx,.doc,.docx,.txt,.zip,.ino,.c,.h,.cpp,.py,.jpg,.jpeg,.png"
+        >
+
+        <textarea
+          name="note"
+          placeholder="Optional note for your instructor…"
+        >{{ a.submission_note or '' }}</textarea>
+
+        <button class="btn" type="submit">
+          {{ 'Resubmit work' if a.submission_id else 'Submit work' }}
+        </button>
+
+      </form>
+
+    </div>
+
+    {% endfor %}
+
+  </section>
+
+  {% endif %}
+
+  <!-- LESSON NAVIGATION -->
+  <div class="lesson-nav">
+
+    {% if prev_day %}
+      <a href="/lesson/{{ prev_day }}">← Previous</a>
+    {% else %}
+      <span></span>
+    {% endif %}
+
+    {% if next_day %}
+      <a href="/lesson/{{ next_day }}">Next lesson →</a>
+    {% endif %}
+
+  </div>
+
+</section>
+
+{% endblock %}
