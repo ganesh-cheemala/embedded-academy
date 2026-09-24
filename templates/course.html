@@ -1,1 +1,103 @@
-{% extends 'base.html' %}{% block title %}Course · {{ academy.academy_name }}{% endblock %}{% block content %}<section class="wrap coursepage"><div class="coursehero"><div><div class="eyebrow">THE PROGRAM</div><h1>{{ academy.course_name }}</h1><p>{{ academy.academy_tagline }}</p><div class="actions"><a class="btn" href="/login">Start learning</a><a class="btn secondary" href="/verify">Verify a certificate</a></div></div><div class="course-ring"><strong>70</strong><span>DAYS</span></div></div><div class="stats-band compact"><div><b>70</b><span>planned days</span></div><div><b>{{ published }}</b><span>lessons live</span></div><div><b>{{ categories|length }}</b><span>learning tracks</span></div><div><b>100%</b><span>self-paced portal</span></div></div><div class="course-title"><div><div class="eyebrow">CURRICULUM</div><h2>What you will learn</h2></div><input id="courseSearch" class="course-search" placeholder="Search the curriculum…"></div><div class="coursegrid public-grid" id="publicGrid">{% for l in lessons %}<article class="lesson public-lesson {% if not l.published %}locked{% endif %}" data-title="{{ l.title|lower }}" data-category="{{ l.category }}"><div class="lesson-top"><span class="day">DAY {{ '%02d'|format(l.day) }}</span><span>{{ 'LIVE' if l.published else 'SOON' }}</span></div><h3>{{ l.title }}</h3><p>{{ l.category }}</p><strong>{{ 'Available in the academy' if l.published else 'Coming soon' }}</strong></article>{% endfor %}</div></section>{% endblock %}{% block scripts %}<script>const q=document.getElementById('courseSearch');q.oninput=()=>{const v=q.value.toLowerCase();document.querySelectorAll('#publicGrid .public-lesson').forEach(x=>x.style.display=x.dataset.title.includes(v)||x.dataset.category.toLowerCase().includes(v)?'':'none')}</script>{% endblock %}
+{% extends 'base.html' %}
+{% block title %}70 Days Real-Time Embedded Systems · {{ academy.academy_name }}{% endblock %}
+{% block content %}
+<section class="wrap coursepage">
+  <div class="coursehero">
+    <div>
+      <div class="eyebrow">FEATURED COURSE</div>
+      <h1>70 Days Real-Time<br>Embedded Systems</h1>
+      <p>Build a strong foundation in embedded systems through structured learning, practical projects and real-world applications.</p>
+      <div class="actions">
+        <a class="btn" href="/login">Start Learning</a>
+        <a class="btn secondary" href="/verify">Verify Certificate</a>
+      </div>
+    </div>
+    <div class="course-ring">
+      <strong>70</strong>
+      <span>DAYS</span>
+    </div>
+  </div>
+
+  <div class="stats-band compact">
+    <div><b>70</b><span>Days</span></div>
+    <div><b>4</b><span>Learning Tracks</span></div>
+    <div><b>∞</b><span>Practical Learning</span></div>
+    <div><b>1</b><span>Certificate</span></div>
+  </div>
+
+  <section class="course-overview">
+    <div class="eyebrow">COURSE OVERVIEW</div>
+    <h2>From fundamentals to real-world embedded systems.</h2>
+    <p>This instructor-led program takes you through Embedded C, microcontrollers, communication protocols, real-time operating systems, IoT and practical embedded projects.</p>
+  </section>
+
+  <section class="course-tracks">
+    <div class="eyebrow">LEARNING JOURNEY</div>
+    <h2>What you'll learn</h2>
+
+    <div class="features">
+      <article>
+        <b>01</b>
+        <h3>Embedded C Fundamentals</h3>
+        <p>Build a strong foundation in C programming, memory, pointers, arrays, structures, unions and embedded programming concepts.</p>
+        <span>Days 01–20</span>
+      </article>
+
+      <article>
+        <b>02</b>
+        <h3>Microcontrollers & Interfacing</h3>
+        <p>Learn microcontrollers, GPIO, timers, interrupts, sensors, displays, motors and hardware interfacing.</p>
+        <span>Days 21–40</span>
+      </article>
+
+      <article>
+        <b>03</b>
+        <h3>RTOS & Peripherals</h3>
+        <p>Understand real-time systems, tasks, scheduling, queues, synchronization and peripheral communication.</p>
+        <span>Days 41–55</span>
+      </article>
+
+      <article>
+        <b>04</b>
+        <h3>IoT & Real-Time Projects</h3>
+        <p>Connect embedded systems, work with wireless communication and build practical IoT and real-time applications.</p>
+        <span>Days 56–70</span>
+      </article>
+    </div>
+  </section>
+
+  <section class="course-journey">
+    <div class="eyebrow">YOUR JOURNEY</div>
+    <h2>Learn → Build → Apply</h2>
+    <div class="journey">
+      <div><strong>01</strong><span>Learn the fundamentals</span></div>
+      <div><strong>02</strong><span>Work with hardware</span></div>
+      <div><strong>03</strong><span>Build practical systems</span></div>
+      <div><strong>04</strong><span>Apply your skills</span></div>
+    </div>
+  </section>
+
+  <section class="course-benefits">
+    <div class="eyebrow">WHAT YOU GET</div>
+    <h2>Everything you need to learn and build.</h2>
+
+    <div class="features">
+      <article><b>✓</b><h3>Video Lessons</h3><p>Structured lessons for each stage of the program.</p></article>
+      <article><b>✓</b><h3>Resources</h3><p>Notes, code, references and supporting materials.</p></article>
+      <article><b>✓</b><h3>Quizzes & Assignments</h3><p>Test your understanding and apply what you learn.</p></article>
+      <article><b>✓</b><h3>Practical Projects</h3><p>Build real embedded and IoT applications.</p></article>
+      <article><b>✓</b><h3>Progress Tracking</h3><p>Track lessons and learning progress from your dashboard.</p></article>
+      <article><b>✓</b><h3>Certificate</h3><p>Receive a course certificate after completing the program.</p></article>
+    </div>
+  </section>
+
+  <section class="course-cta">
+    <div>
+      <div class="eyebrow">START YOUR JOURNEY</div>
+      <h2>Ready to build your embedded systems skills?</h2>
+      <p>Join the 70-day Real-Time Embedded Systems program.</p>
+    </div>
+    <a class="btn" href="/login">Start Learning →</a>
+  </section>
+</section>
+{% endblock %}
