@@ -39,3 +39,11 @@
 .course-cta p{color:var(--muted);margin:0}
 @media(max-width:800px){.course-tracks .features,.course-benefits .features{grid-template-columns:1fr 1fr}.journey{grid-template-columns:1fr 1fr}.course-cta{display:block}.course-cta .btn{margin-top:18px}}
 @media(max-width:640px){.course-overview,.course-journey,.course-benefits{padding:28px 0}.course-overview h2,.course-journey h2,.course-benefits h2,.course-tracks>h2{font-size:30px}.course-tracks .features,.course-benefits .features,.journey{grid-template-columns:1fr}.course-cta{padding:24px}.course-cta h2{font-size:24px}}
+
+/* Homepage spacing refinement */
+.hero{padding-top:45px;padding-bottom:55px}
+.section{padding:45px 0}
+.sectionhead{margin-bottom:22px}
+.features{gap:16px}
+.features article{padding:24px}
+.stats-band{margin-top:20px}
