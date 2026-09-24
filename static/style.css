@@ -16,3 +16,26 @@
 .flash{margin-top:22px;padding:12px 16px;border:1px solid var(--line);border-radius:14px;background:#0b1720;color:#cfe2e8;font-size:11px}.flash.success{border-color:#285b4b;color:#70f0c6}.coursepage{padding-bottom:100px}.coursehero{display:grid;grid-template-columns:1fr 240px;gap:50px;align-items:center;padding:62px 0 42px}.coursehero h1{font:600 clamp(40px,6vw,72px)/.98 'Space Grotesk';max-width:850px;margin:12px 0}.coursehero p{max-width:640px;color:var(--muted);font-size:15px;line-height:1.7}.course-ring{aspect-ratio:1;border-radius:50%;display:grid;place-items:center;align-content:center;border:1px solid #315369;background:radial-gradient(circle at 40% 35%,#183140,#0a141c 66%);box-shadow:0 25px 80px rgba(0,0,0,.25);text-align:center}.course-ring strong{font:700 72px 'Space Grotesk';color:var(--accent);line-height:.8}.course-ring span{margin-top:16px;color:var(--muted);font-size:10px;letter-spacing:3px}.stats-band.compact{margin-bottom:65px}.course-title{display:flex;justify-content:space-between;gap:15px;align-items:end;margin-bottom:18px}.course-search{max-width:360px}.public-grid .public-lesson{cursor:default}.public-grid .public-lesson.locked{opacity:.55}.admin-student-search{margin:10px 0 15px;max-width:420px}.nav .brand{white-space:nowrap}@media(max-width:800px){.coursehero{grid-template-columns:1fr}.course-ring{width:180px}.course-title{display:block}.course-search{margin-top:12px;max-width:none}}@media(max-width:640px){.coursehero{padding-top:35px}.coursehero h1{font-size:42px}.stats-band.compact{margin-bottom:40px}}
 /* v14 launch / role polish */
 .brand-mark.has-logo{overflow:hidden;padding:0;background:rgba(255,255,255,.04)}.brand-mark img{width:100%;height:100%;object-fit:contain;border-radius:inherit}.brand-mark.large{width:64px;height:64px;font-size:22px}.brand-preview{display:flex;align-items:center;gap:14px}.brand-preview b{display:block;font-size:12px}.brand-preview small{display:block;color:var(--muted);font-size:9px;margin-top:4px}.staff-grid{display:grid;grid-template-columns:minmax(280px,1fr) minmax(320px,1.2fr);gap:20px}.staff-list{border:1px solid var(--line);border-radius:15px;overflow:hidden}.staff-list .studentrow{border-bottom:1px solid #ffffff08}.staff-list .studentrow:last-child{border-bottom:0}.staff-list .muted{font-size:9px}@media(max-width:800px){.staff-grid{grid-template-columns:1fr}.brand-preview{margin-bottom:10px}.bulkbox .bulkform{display:block}}
+
+
+.course-overview,.course-journey,.course-benefits{padding:65px 0}
+.course-overview{max-width:850px}
+.course-overview h2,.course-journey h2,.course-benefits h2{font:600 38px/1.1 'Space Grotesk';letter-spacing:-1.5px;margin:0 0 16px}
+.course-overview p{color:var(--muted);font-size:15px;line-height:1.8;max-width:780px}
+.course-tracks{padding:20px 0 30px}
+.course-tracks>h2{font:600 38px/1.1 'Space Grotesk';letter-spacing:-1.5px;margin:0}
+.course-tracks .features{grid-template-columns:repeat(2,1fr)}
+.course-tracks .features article{min-height:220px}
+.course-tracks article span{display:inline-block;margin-top:18px;color:var(--accent);font-size:10px;font-weight:700;letter-spacing:1px}
+.journey{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:30px}
+.journey>div{padding:22px;border:1px solid var(--line);border-radius:16px;background:#0b1720}
+.journey strong{display:block;color:var(--accent);font:600 26px 'Space Grotesk';margin-bottom:12px}
+.journey span{color:var(--muted);font-size:11px}
+.course-benefits .features{grid-template-columns:repeat(3,1fr)}
+.course-benefits .features article{min-height:150px}
+.course-benefits .features b{font-size:18px}
+.course-cta{display:flex;justify-content:space-between;align-items:center;gap:30px;margin:50px 0 30px;padding:35px;border:1px solid #315369;border-radius:20px;background:linear-gradient(135deg,#0d1e2a,#0a151d)}
+.course-cta h2{font:600 28px 'Space Grotesk';margin:5px 0 8px}
+.course-cta p{color:var(--muted);margin:0}
+@media(max-width:800px){.course-tracks .features,.course-benefits .features{grid-template-columns:1fr 1fr}.journey{grid-template-columns:1fr 1fr}.course-cta{display:block}.course-cta .btn{margin-top:20px}}
+@media(max-width:640px){.course-overview,.course-journey,.course-benefits{padding:45px 0}.course-overview h2,.course-journey h2,.course-benefits h2,.course-tracks>h2{font-size:30px}.course-tracks .features,.course-benefits .features,.journey{grid-template-columns:1fr}.course-cta{padding:25px}.course-cta h2{font-size:24px}}
