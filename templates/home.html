@@ -1,1 +1,116 @@
-{% extends 'base.html' %}{% block title %}{{ academy.academy_name }}{% endblock %}{% block content %}<section class="hero wrap"><div><div class="eyebrow">PRIVATE LEARNING PORTAL</div><h1>Learn embedded systems.<br><em>Build real things.</em></h1><p>One professional home for lessons, videos, source code, assignments, quizzes and progress — without the Teams guest-account maze.</p><div class="actions"><a class="btn" href="/login">Enter Academy</a><a class="btn secondary" href="#platform">Explore platform</a></div><div class="trust"><span>{{ counts.published }}</span> lessons live · <span>{{ counts.students }}</span> students · <span>{{ stats.assignments }}</span> active assignments</div></div><div class="hero-visual"><div class="orb"><div><strong>70</strong><small>DAYS</small></div></div><div class="floating-card fc1"><b>Private student accounts</b><span>Simple username + password access.</span></div><div class="floating-card fc2"><b>Progress + submissions</b><span>Know exactly what needs attention.</span></div></div></section><section id="platform" class="section wrap"><div class="sectionhead"><div class="eyebrow">THE PLATFORM</div><h2>Everything your course needs in one place.</h2></div><div class="features"><article><b>01</b><h3>Teach</h3><p>Publish Day 1–70 content with video, resources and practical work.</p></article><article><b>02</b><h3>Track</h3><p>Completion, assignments and quiz attempts stay connected to each student.</p></article><article><b>03</b><h3>Operate</h3><p>Run the batch from one control center with students, announcements and content publishing.</p></article></div></section><section class="section wrap stats-band"><div><b>{{ counts.published }}</b><span>Lessons live</span></div><div><b>70</b><span>Days planned</span></div><div><b>{{ stats.submissions }}</b><span>Submissions</span></div><div><b>24/7</b><span>Portal access</span></div></section>{% endblock %}
+{% extends 'base.html' %}
+{% block title %}{{ academy.academy_name }}{% endblock %}
+{% block content %}
+<section class="hero wrap">
+  <div>
+    <div class="eyebrow">KCI ACADEMY</div>
+    <h1>Learn. Build.<br><em>Innovate.</em></h1>
+    <p>Practical technology training for engineers and students, with structured learning, real projects and industry-focused skills.</p>
+    <div class="actions">
+      <a class="btn" href="/course">Explore Courses</a>
+      <a class="btn secondary" href="/login">Student Login</a>
+    </div>
+    <div class="trust">
+      <span>Practical</span> learning · <span>Real</span> projects · <span>Industry</span> focused
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="orb">
+      <div>
+        <strong>KCI</strong>
+        <small>ACADEMY</small>
+      </div>
+    </div>
+    <div class="floating-card fc1">
+      <b>Learn by building</b>
+      <span>Hands-on technology training and practical projects.</span>
+    </div>
+    <div class="floating-card fc2">
+      <b>Track your progress</b>
+      <span>Lessons, quizzes, assignments and certificates.</span>
+    </div>
+  </div>
+</section>
+
+<section id="courses" class="section wrap">
+  <div class="sectionhead">
+    <div class="eyebrow">FEATURED COURSE</div>
+    <h2>Start your learning journey.</h2>
+  </div>
+  <div class="features">
+    <article>
+      <b>01</b>
+      <h3>70 Days Real-Time Embedded Systems</h3>
+      <p>Learn Embedded C, microcontrollers, communication protocols, RTOS, IoT and practical embedded applications through a structured 70-day program.</p>
+      <a class="btn" href="/course">Explore Course →</a>
+    </article>
+  </div>
+</section>
+
+<section class="section wrap">
+  <div class="sectionhead">
+    <div class="eyebrow">LEARNING AREAS</div>
+    <h2>Technology skills for the real world.</h2>
+  </div>
+  <div class="features">
+    <article>
+      <b>01</b>
+      <h3>Embedded Systems</h3>
+      <p>Embedded C, microcontrollers, peripherals, communication and real-time systems.</p>
+    </article>
+    <article>
+      <b>02</b>
+      <h3>IoT & Smart Systems</h3>
+      <p>Sensors, connectivity, cloud platforms and intelligent connected applications.</p>
+    </article>
+    <article>
+      <b>03</b>
+      <h3>Robotics & Automation</h3>
+      <p>Controllers, motors, sensors and automation-focused practical projects.</p>
+    </article>
+  </div>
+</section>
+
+<section class="section wrap">
+  <div class="sectionhead">
+    <div class="eyebrow">COMING SOON</div>
+    <h2>More courses are on the way.</h2>
+  </div>
+  <div class="features">
+    <article>
+      <b>04</b>
+      <h3>Edge AI & Embedded AI</h3>
+      <p>Bring machine learning and intelligent decision-making to embedded and edge devices.</p>
+    </article>
+    <article>
+      <b>05</b>
+      <h3>Advanced Embedded Systems</h3>
+      <p>Advanced firmware, RTOS, system design and industry-oriented embedded development.</p>
+    </article>
+    <article>
+      <b>06</b>
+      <h3>More to come</h3>
+      <p>New technical courses and practical learning programs will be added to KCI Academy.</p>
+    </article>
+  </div>
+</section>
+
+<section class="section wrap stats-band">
+  <div>
+    <b>01</b>
+    <span>Featured Course</span>
+  </div>
+  <div>
+    <b>70</b>
+    <span>Days of Embedded Training</span>
+  </div>
+  <div>
+    <b>∞</b>
+    <span>Learning Possibilities</span>
+  </div>
+  <div>
+    <b>24/7</b>
+    <span>Student Portal Access</span>
+  </div>
+</section>
+{% endblock %}
