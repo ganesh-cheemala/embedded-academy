@@ -18,24 +18,24 @@
 .brand-mark.has-logo{overflow:hidden;padding:0;background:rgba(255,255,255,.04)}.brand-mark img{width:100%;height:100%;object-fit:contain;border-radius:inherit}.brand-mark.large{width:64px;height:64px;font-size:22px}.brand-preview{display:flex;align-items:center;gap:14px}.brand-preview b{display:block;font-size:12px}.brand-preview small{display:block;color:var(--muted);font-size:9px;margin-top:4px}.staff-grid{display:grid;grid-template-columns:minmax(280px,1fr) minmax(320px,1.2fr);gap:20px}.staff-list{border:1px solid var(--line);border-radius:15px;overflow:hidden}.staff-list .studentrow{border-bottom:1px solid #ffffff08}.staff-list .studentrow:last-child{border-bottom:0}.staff-list .muted{font-size:9px}@media(max-width:800px){.staff-grid{grid-template-columns:1fr}.brand-preview{margin-bottom:10px}.bulkbox .bulkform{display:block}}
 
 
-.course-overview,.course-journey,.course-benefits{padding:65px 0}
-.course-overview{max-width:850px}
-.course-overview h2,.course-journey h2,.course-benefits h2{font:600 38px/1.1 'Space Grotesk';letter-spacing:-1.5px;margin:0 0 16px}
-.course-overview p{color:var(--muted);font-size:15px;line-height:1.8;max-width:780px}
-.course-tracks{padding:20px 0 30px}
+.course-overview,.course-journey,.course-benefits{padding:32px 0}
+.course-overview{max-width:900px}
+.course-overview h2,.course-journey h2,.course-benefits h2{font:600 38px/1.1 'Space Grotesk';letter-spacing:-1.5px;margin:0 0 12px}
+.course-overview p{color:var(--muted);font-size:16px;line-height:1.7;max-width:800px}
+.course-tracks{padding:8px 0 16px}
 .course-tracks>h2{font:600 38px/1.1 'Space Grotesk';letter-spacing:-1.5px;margin:0}
-.course-tracks .features{grid-template-columns:repeat(2,1fr)}
-.course-tracks .features article{min-height:220px}
-.course-tracks article span{display:inline-block;margin-top:18px;color:var(--accent);font-size:10px;font-weight:700;letter-spacing:1px}
-.journey{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:30px}
-.journey>div{padding:22px;border:1px solid var(--line);border-radius:16px;background:#0b1720}
-.journey strong{display:block;color:var(--accent);font:600 26px 'Space Grotesk';margin-bottom:12px}
+.course-tracks .features{grid-template-columns:repeat(2,1fr);gap:14px;margin-top:16px}
+.course-tracks .features article{padding:22px;min-height:175px}
+.course-tracks article span{display:inline-block;margin-top:14px;color:var(--accent);font-size:10px;font-weight:700;letter-spacing:1px}
+.journey{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:16px}
+.journey>div{padding:18px;border:1px solid var(--line);border-radius:16px;background:#0b1720}
+.journey strong{display:block;color:var(--accent);font:600 26px 'Space Grotesk';margin-bottom:8px}
 .journey span{color:var(--muted);font-size:11px}
-.course-benefits .features{grid-template-columns:repeat(3,1fr)}
-.course-benefits .features article{min-height:150px}
+.course-benefits .features{grid-template-columns:repeat(3,1fr);gap:14px;margin-top:16px}
+.course-benefits .features article{padding:20px;min-height:130px}
 .course-benefits .features b{font-size:18px}
-.course-cta{display:flex;justify-content:space-between;align-items:center;gap:30px;margin:50px 0 30px;padding:35px;border:1px solid #315369;border-radius:20px;background:linear-gradient(135deg,#0d1e2a,#0a151d)}
+.course-cta{display:flex;justify-content:space-between;align-items:center;gap:25px;margin:28px 0 18px;padding:30px;border:1px solid #315369;border-radius:20px;background:linear-gradient(135deg,#0d1e2a,#0a151d)}
 .course-cta h2{font:600 28px 'Space Grotesk';margin:5px 0 8px}
 .course-cta p{color:var(--muted);margin:0}
-@media(max-width:800px){.course-tracks .features,.course-benefits .features{grid-template-columns:1fr 1fr}.journey{grid-template-columns:1fr 1fr}.course-cta{display:block}.course-cta .btn{margin-top:20px}}
-@media(max-width:640px){.course-overview,.course-journey,.course-benefits{padding:45px 0}.course-overview h2,.course-journey h2,.course-benefits h2,.course-tracks>h2{font-size:30px}.course-tracks .features,.course-benefits .features,.journey{grid-template-columns:1fr}.course-cta{padding:25px}.course-cta h2{font-size:24px}}
+@media(max-width:800px){.course-tracks .features,.course-benefits .features{grid-template-columns:1fr 1fr}.journey{grid-template-columns:1fr 1fr}.course-cta{display:block}.course-cta .btn{margin-top:18px}}
+@media(max-width:640px){.course-overview,.course-journey,.course-benefits{padding:28px 0}.course-overview h2,.course-journey h2,.course-benefits h2,.course-tracks>h2{font-size:30px}.course-tracks .features,.course-benefits .features,.journey{grid-template-columns:1fr}.course-cta{padding:24px}.course-cta h2{font-size:24px}}
